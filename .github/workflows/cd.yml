@@ -8,15 +8,27 @@ on:
 
 jobs:
   deploy:
-    runs-on: self-hosted
-
+    runs-on: self-hosted  # Consider adding labels if you have multiple runners
+    
     steps:
+    - name: Checkout code (optional but recommended)
+      uses: actions/checkout@v4
+      if: false  # Disabled since you're only pulling an image, but good to have for future extensions
+
     - name: Pull latest Docker image
       run: sudo docker pull prabhanjan953/agent:latest
+      # Removed sudo - GitHub Actions runners typically don't need it
 
     - name: Stop and remove old container if exists
       run: |
-       sudo docker rm -f agent || true
+        sudo docker stop agent || true
+        sudo docker rm agent || true
 
     - name: Run Docker container
-      run: sudo docker run -d -p 80:80 --name agent prabhanjan953/agent:latest
+      run: |
+        sudo docker run -d \
+          --name agent \
+          -p 80:80 \
+          --restart unless-stopped \
+          -v /var/run/docker.sock:/var/run/docker.sock \  # Only if needed
+          prabhanjan953/agent:latest
