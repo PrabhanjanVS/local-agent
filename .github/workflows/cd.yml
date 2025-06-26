@@ -16,17 +16,17 @@ jobs:
       if: false  # Disabled since you're only pulling an image, but good to have for future extensions
 
     - name: Pull latest Docker image
-      run: sudo docker pull prabhanjan953/agent:latest
+      run:  docker pull prabhanjan953/agent:latest
       # Removed sudo - GitHub Actions runners typically don't need it
 
     - name: Stop and remove old container if exists
       run: |
-        sudo docker stop agent || true
-        sudo docker rm agent || true
+         docker stop agent || true
+         docker rm agent || true
 
     - name: Run Docker container
       run: |
-        sudo docker run -d \
+         docker run -d \
           --name agent \
           -p 80:80 \
           --restart unless-stopped \
