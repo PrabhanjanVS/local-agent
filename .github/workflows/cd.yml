@@ -1,0 +1,25 @@
+name: CD Pipeline
+
+on:
+  workflow_run:
+    workflows: ["CI build"]
+    types:
+      - completed
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+
+    steps:
+    - name: Login to DockerHub
+      run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+
+    - name: Pull latest Docker image
+      run: sudo docker pull prabhanjan953/agent:latest
+
+    - name: Stop and remove old container if exists
+      run: |
+        sudo docker rm -f agent || true
+
+    - name: Run Docker container
+      run: sudo docker run -d -p 80:80 --name agent prabhanjan953/agent:latest
