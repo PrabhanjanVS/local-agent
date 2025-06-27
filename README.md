@@ -38,7 +38,5 @@ Docker Cache: Optimized with multi-stage builds to reduce image size.
 
 # Future Improvements:
 Add Kubernetes (EKS) for scaling.
-
-Implement Prometheus for monitoring resource usage.
-
 Blue-green deployments to minimize downtime.
+lol
