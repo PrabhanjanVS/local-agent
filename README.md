@@ -39,4 +39,4 @@ Docker Cache: Optimized with multi-stage builds to reduce image size.
 # Future Improvements:
 Add Kubernetes (EKS) for scaling.
 Blue-green deployments to minimize downtime.
-lol
+lola
