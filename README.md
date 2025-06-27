@@ -21,7 +21,6 @@ Builds/pushes Docker image (to ECR/Docker Hub).
 SSH into EC2 to deploy the updated container.
 
 ## 📦 Pipeline Architecture  
-```mermaid
 graph LR
   A[Code Push] --> B[GitHub Actions]
   B --> C{Lint/Test}
